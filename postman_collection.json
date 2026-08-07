@@ -1,0 +1,164 @@
+{
+  "info": {
+    "name": "Taller de Motos Pavas - API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:4000/api" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{base_url}}/health" }
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@pavasmotor.com\",\n  \"password\": \"Pavas2026*\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Perfil actual (requiere token)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{base_url}}/auth/yo"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        { "name": "Listar clientes", "request": { "method": "GET", "url": "{{base_url}}/clientes?page=1&limit=10" } },
+        { "name": "Obtener cliente", "request": { "method": "GET", "url": "{{base_url}}/clientes/1" } },
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/clientes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Carlos Ramirez\",\n  \"documento\": \"1-0101-0101\",\n  \"telefono\": \"8888-1111\",\n  \"email\": \"carlos@example.com\",\n  \"direccion\": \"San Jose, Pavas\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar cliente",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/clientes/1",
+            "body": { "mode": "raw", "raw": "{\n  \"telefono\": \"8888-9999\"\n}" }
+          }
+        },
+        { "name": "Eliminar cliente", "request": { "method": "DELETE", "url": "{{base_url}}/clientes/1" } }
+      ]
+    },
+    {
+      "name": "Motos",
+      "item": [
+        { "name": "Listar motos", "request": { "method": "GET", "url": "{{base_url}}/motos?page=1&limit=10" } },
+        { "name": "Obtener moto", "request": { "method": "GET", "url": "{{base_url}}/motos/1" } },
+        {
+          "name": "Crear moto",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/motos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"placa\": \"MOT-003\",\n  \"marca\": \"Suzuki\",\n  \"modelo\": \"GN125\",\n  \"cilindraje\": 125,\n  \"color\": \"Negro\",\n  \"kilometraje\": 5000,\n  \"cliente_id\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar moto",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/motos/1",
+            "body": { "mode": "raw", "raw": "{\n  \"kilometraje\": 13000\n}" }
+          }
+        },
+        { "name": "Eliminar moto", "request": { "method": "DELETE", "url": "{{base_url}}/motos/1" } }
+      ]
+    },
+    {
+      "name": "Ordenes",
+      "item": [
+        { "name": "Listar ordenes", "request": { "method": "GET", "url": "{{base_url}}/ordenes?page=1&limit=10&estado=RECIBIDA" } },
+        { "name": "Obtener orden", "request": { "method": "GET", "url": "{{base_url}}/ordenes/1" } },
+        {
+          "name": "Crear orden",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/ordenes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"moto_id\": 1,\n  \"descripcion_falla\": \"Ruido en el motor al acelerar\",\n  \"observaciones\": \"Revisar cadena\",\n  \"responsable\": \"Taller Pavas\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar orden",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/ordenes/1",
+            "body": { "mode": "raw", "raw": "{\n  \"observaciones\": \"Cliente confirma revision de cadena\"\n}" }
+          }
+        },
+        {
+          "name": "Cambiar estado de orden",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/ordenes/1/estado",
+            "body": { "mode": "raw", "raw": "{\n  \"estado\": \"DIAGNOSTICO\"\n}" }
+          }
+        },
+        { "name": "Eliminar orden", "request": { "method": "DELETE", "url": "{{base_url}}/ordenes/1" } }
+      ]
+    },
+    {
+      "name": "Items de Orden",
+      "item": [
+        { "name": "Listar items de una orden", "request": { "method": "GET", "url": "{{base_url}}/ordenes/1/items" } },
+        {
+          "name": "Agregar item",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/ordenes/1/items",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"REPUESTO\",\n  \"descripcion\": \"Kit de arrastre\",\n  \"cantidad\": 1,\n  \"precio_unitario\": 45000\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar item",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{base_url}}/ordenes/1/items/1",
+            "body": { "mode": "raw", "raw": "{\n  \"cantidad\": 2\n}" }
+          }
+        },
+        { "name": "Eliminar item", "request": { "method": "DELETE", "url": "{{base_url}}/ordenes/1/items/1" } }
+      ]
+    }
+  ]
+}

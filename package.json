@@ -4,13 +4,19 @@
   "description": "API REST para el Sistema de Gestion de Taller de Motos - Prueba tecnica Pavas S.A.S.",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "start": "node api.js && node src/server.js",
+    "dev": "node api.js && nodemon src/server.js",
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:seed": "sequelize-cli db:seed:all"
   },
-  "keywords": ["taller", "motos", "express", "mysql", "sequelize"],
+  "keywords": [
+    "taller",
+    "motos",
+    "express",
+    "mysql",
+    "sequelize"
+  ],
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
